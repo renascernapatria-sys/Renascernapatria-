@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precisa de Ajuda? - Projeto Renascer na Pátria</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #003399; /* Azul mais forte/diferenciado */
+            color: #fff;
+        }
+        header {
+            background-color: #002266; /* Azul ainda mais escuro */
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        /* BARRA DE NAVEGAÇÃO NOVA */
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            background-color: #002266;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 20px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            background-color: #0047AB;
+        }
+        nav a.ativo {
+            background-color: #FF6600; /* Laranja pra marcar onde está */
+        }
+        .conteudo {
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: #fff;
+            color: #333;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+        h2 {
+            color: #003399;
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #FF6600;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #e65500;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #002266;
+            color: #fff;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Projeto Renascer na Pátria</h1>
+        <p>Ajudar quem regressa a reconstruir a vida em Moçambique</p>
+    </header>
+
+    <!-- LINKS NO TOPO PRA VOLTAR -->
+    <nav>
+        <a href="Renascer na Patria.html">Início</a>
+        <a href="Renascer na pastria2.html"> Sobre o projeto</a> 
+        <a href="Renascer na Patria3.html">Precisa de Ajuda?</a>
+    </nav>
+
+    <div class="conteudo">
+        <h2>Formulário de Apoio</h2>
+        <p>Se és moçambicano a regressar e precisas de apoio para trabalhar ou produzir, preencha abaixo. Vamos te contactar.</p>
+
+        <form action="mailto:renascerpatria@gmail.com" method="post" enctype="text/plain">
+            <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" name="Nome" required>
+
+            <label for="contacto">WhatsApp ou Email:</label>
+            <input type="text" id="contacto" name="Contacto" required>
+
+            <label for="provincia">Província onde estás:</label>
+            <input type="text" id="provincia" name="Provincia">
+
+            <label for="mensagem">Como podemos te ajudar?</label>
+            <textarea id="mensagem" name="Mensagem" rows="4" required></textarea>
+
+            <button type="submit">Pedir Apoio Agora</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>#Vamos Trabalhar</p>
+        <p>&copy; 2026 Projeto Renascer na Pátria</p>
+    </footer>
+
+</body>
+</html>
