@@ -3,108 +3,179 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Galeria - Renascer Pátria</title>
+  <title>Galeria de Ações | Renascer Pátria</title>
   <style>
     :root {
-      --azul-principal: #004a99;
-      --azul-claro: #66ccff;
-      --fundo: #f0f4f8;
+      --azul-gov: #003366; 
+      --azul-destaque: #0057b8;
+      --dourado: #C0A062; 
+      --fundo: #f8f9fa;
     }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: 'Segoe UI', system-ui, Arial, sans-serif;
       background: var(--fundo);
+      color: #212529;
+      -webkit-font-smoothing: antialiased;
     }
+    
+    /* HEADER GOVERNAMENTAL */
     header {
       text-align: center; 
-      padding: 40px 20px; 
-      background: var(--azul-principal);
+      padding: 70px 20px; 
+      background: var(--azul-gov);
       color:white;
+      border-bottom: 5px solid var(--dourado);
     }
-    header h1 {margin: 0; font-size: 2.2rem;}
-    header p {margin: 8px 0 15px 0; opacity: 0.9; font-size: 1.1rem;}
-    header a {color:var(--azul-claro); text-decoration:none; font-weight:bold; border: 1px solid var(--azul-claro); padding: 8px 15px; border-radius: 8px;}
+    header h1 {font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; letter-spacing: -0.5px;}
+    header p {margin: 12px auto 25px; opacity: 0.9; font-size: 1.15rem; max-width: 600px; line-height: 1.6;}
+    header a {color:white; background: var(--azul-destaque); text-decoration:none; font-weight:600; padding: 12px 24px; border-radius: 6px; transition: background 0.2s, transform 0.2s; display: inline-block;}
+    header a:hover {background: #004494; transform: translateY(-2px);}
 
+    .container { max-width: 1200px; margin: auto; padding: 60px 20px; }
+
+    /* GALERIA GRID PROFISSIONAL */
     .galeria {
-      display: flex;
-      flex-direction: column; /* FORÇA FICAR EM COLUNA/VERTICAL */
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); 
       gap: 35px;
-      padding: 50px 20px;
-      max-width: 650px; /* LARGURA MENOR PRA FICAR VERTICAL */
-      margin: auto;
     }
+    @media (max-width: 768px) { .galeria { grid-template-columns: 1fr; } }
 
     .card {
       background: white;
-      border-radius: 20px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.07);
-      border-left: 5px solid var(--azul-principal); /* DETALHE AZUL NA LATERAL */
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
       overflow: hidden;
-      text-align: left;
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer; /* PRA SABER QUE É CLICÁVEL */
+      border: 1px solid #e9ecef;
     }
     .card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 12px 30px rgba(0,74,153,0.15);
+      box-shadow: 0 15px 35px rgba(0, 51, 102, 0.15);
     }
     .card img {
       width: 100%;
-      height: 450px; /* ALTURA MAIOR = FORMATO VERTICAL/RETRATO */
-      object-fit: cover; /* NÃO DEFORMA A FOTO */
+      aspect-ratio: 3 / 4; /* VERTICAL PERFEITO */
+      object-fit: cover; 
       display: block;
+      transition: transform 0.4s ease;
     }
-    .card-content {
-      padding: 20px 25px;
+    .card:hover img { transform: scale(1.03); } /* ZOOM SUAVE */
+    .card-content { padding: 24px; }
+    .card h3 { margin: 0 0 10px 0; color: var(--azul-gov); font-size: 1.4rem; }
+    .card p { margin: 0; font-size: 15px; line-height: 1.7; color: #495057; }
+
+    /* LIGHTBOX - O POPUP QUE ABRE A FOTO GRANDE */
+    .lightbox {
+      display: none; position: fixed; z-index: 1000;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      justify-content: center; align-items: center;
+      opacity: 0; transition: opacity 0.3s ease;
     }
-    .card h3 {
-      margin: 0 0 10px 0;
-      color: var(--azul-principal);
-      font-size: 1.4rem;
+    .lightbox.ativo { display: flex; opacity: 1; }
+    .lightbox img {
+      max-width: 90%; max-height: 85vh;
+      border-radius: 8px; box-shadow: 0 0 30px rgba(0,0,0,0.5);
+      transform: scale(0.9); transition: transform 0.3s ease;
     }
-    .card p {
-      margin: 0;
-      font-size: 15px;
-      line-height: 1.6;
-      color: #444;
+    .lightbox.ativo img { transform: scale(1); }
+    .lightbox .fechar {
+      position: absolute; top: 20px; right: 30px;
+      color: white; font-size: 40px; font-weight: 300;
+      cursor: pointer; transition: color 0.2s;
+    }
+    .lightbox .fechar:hover { color: var(--dourado); }
+    .lightbox .legenda {
+      position: absolute; bottom: 20px;
+      color: white; text-align: center;
+      background: rgba(0,0,0,0.5); padding: 10px 20px; border-radius: 6px;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Galeria de Ações</h1>
-    <p>Conheça os pilares do nosso projeto</p>
-    <a href="index.html">← Voltar ao início</a>
+    <h1>Portfólio de Ações Sociais</h1>
+    <p>Resultados e iniciativas do Projeto Renascer Na Pátria.</p>
+    <a href="index.html">← Voltar ao Portal</a>
   </header>
 
-  <main class="galeria">
-    <div class="card">
-      <img src="Balcao.png" alt="Balcao">
-      <div class="card-content">
-        <h3>Balção de Atendimento</h3>
-        <p>Uma parceria direta com o Governo para aproximar os serviços do Estado à comunidade, garantindo atendimento e informação com qualidade.</p>
+  <div class="container">
+    <main class="galeria">
+      <div class="card" data-img="Balcao.png" data-titulo="Balção de Atendimento" data-desc="Uma parceria direta com o Governo para aproximar os serviços do Estado à comunidade.">
+        <img src="balcao.png" alt="Balcao de Atendimento">
+        <div class="card-content">
+          <h3>Balção de Atendimento</h3>
+          <p>Uma parceria direta com o Governo para aproximar os serviços do Estado à comunidade, garantindo atendimento e informação com qualidade.</p>
+        </div>
       </div>
-    </div>
-    <div class="card">
-      <img src="Bi.png" alt="Bi">
-      <div class="card-content">
-        <h3>BI Cidadão</h3>
-        <p>Campanha de documentação para garantir que todos tenham acesso aos seus direitos básicos como cidadãos.</p>
+      <div class="card" data-img="Bi.png" data-titulo="BI Cidadão" data-desc="Campanha de documentação para garantir acesso aos direitos básicos.">
+        <img src="Bi.png" alt="BI Cidadão">
+        <div class="card-content">
+          <h3>BI Cidadão</h3>
+          <p>Campanha de documentação para garantir que todos tenham acesso aos seus direitos básicos como cidadãos.</p>
+        </div>
       </div>
-    </div>
-    <div class="card">
-      <img src="formacao.png" alt="Formacao">
-      <div class="card-content">
-        <h3>Formação Profissional</h3>
-        <p>Capacitamos jovens e adultos com cursos práticos para o mercado de trabalho e empreendedorismo.</p>
+      <div class="card" data-img="formacao.png" data-titulo="Formação Profissional" data-desc="Cursos práticos para o mercado de trabalho e empreendedorismo.">
+        <img src="formacao.png" alt="Formação Profissional">
+        <div class="card-content">
+          <h3>Formação Profissional</h3>
+          <p>Capacitamos jovens e adultos com cursos práticos para o mercado de trabalho e empreendedorismo.</p>
+        </div>
       </div>
-    </div>
-    <div class="card">
-      <img src="kit.png" alt="Kit">
-      <div class="card-content">
-        <h3>Entrega de Kits</h3>
-        <p>Apoio material direto às famílias. Kits de higiene, escolares e alimentares para quem mais precisa.</p>
+      <div class="card" data-img="kit.png" data-titulo="Entrega de Kits" data-desc="Apoio material direto às famílias mais necessitadas.">
+        <img src="kit.png" alt="Entrega de Kits">
+        <div class="card-content">
+          <h3>Entrega de Kits</h3>
+          <p>Apoio material direto às famílias. Kits de higiene, escolares e alimentares para quem mais precisa.</p>
+        </div>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
+
+  <!-- ESTRUTURA DO LIGHTBOX -->
+  <div id="lightbox" class="lightbox">
+    <span class="fechar">&times;</span>
+    <img src="" alt="">
+    <div class="legenda"></div>
+  </div>
+
+  <script>
+    // JAVASCRIPT DO LIGHTBOX
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    const lightboxLegenda = lightbox.querySelector('.legenda');
+    const fecharBtn = lightbox.querySelector('.fechar');
+    const cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const imgSrc = card.getAttribute('data-img');
+        const titulo = card.getAttribute('data-titulo');
+        const desc = card.getAttribute('data-desc');
+        
+        lightboxImg.src = imgSrc;
+        lightboxImg.alt = titulo;
+        lightboxLegenda.innerHTML = `<strong>${titulo}</strong> - ${desc}`;
+        lightbox.classList.add('ativo');
+        document.body.style.overflow = 'hidden'; // TRAVA O SCROLL
+      });
+    });
+
+    function fecharLightbox() {
+      lightbox.classList.remove('ativo');
+      document.body.style.overflow = ''; // VOLTA O SCROLL
+    }
+
+    fecharBtn.addEventListener('click', fecharLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) { fecharLightbox(); } // FECHA AO CLICAR FORA
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') { fecharLightbox(); } // FECHA COM ESC
+    });
+  </script>
 </body>
 </html>
