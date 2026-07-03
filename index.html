@@ -18,6 +18,11 @@
             color: white;
             padding: 20px;
             text-align: center;
+            position: sticky; /* Cola no topo */
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Sombra pra destacar */
+        
         }
 
         /* Menu simples que eu aprendi */
@@ -31,6 +36,7 @@
             text-decoration: none;
             margin: 0 15px;
             font-weight: bold;
+            position: sticky; /* Cola no topo */
         }
         nav a:hover {
             text-decoration: underline;
@@ -98,6 +104,7 @@
             padding: 8px;
             border: 1px solid #cccccc;
             box-sizing: border-box; 
+            border-radius: 4px; /* Ficou mais moderno */
         }
 
         .botao-enviar {
